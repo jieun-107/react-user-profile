@@ -25,7 +25,10 @@ export default function SettingProvider({
   children: React.ReactNode;
 }) {
   // 1. 실제 데이터를 관리하는 State
-  const [preferences, setPreferences] = useState<UserPreferences>(defaultValue);
+  const [preferences, setPreferences] = useState<UserPreferences>(() => {
+    const save = localStorage.getItem("preferences");
+    return save ? JSON.parse(save) : defaultValue;
+  });
   
   // 언어 변경 함수
   const updateLanguage = (language: UserPreferences["language"]) => {
@@ -71,6 +74,8 @@ export default function SettingProvider({
   );
 
   useEffect(() => {
+    localStorage.setItem("preferences", JSON.stringify(preferences));
+
     document.documentElement.style.fontSize = {
       small: "14px",
       medium: "16px",
