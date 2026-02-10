@@ -76,6 +76,20 @@ export default function SettingProvider({
       medium: "16px",
       large: "18px",
     }[preferences.fontSize];
+    console.log("preferences change");
+    if(preferences.colorScheme === "system") {
+      document.documentElement.classList.remove("light", "dark");
+      // 사용자 프로필 설정이 다크모드인가
+      if (window.matchMedia("prefers-color-scheme: dark").matches) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.add("light");
+      }
+    } else {
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(preferences.colorScheme);
+
+    }
   }, [preferences]);
   return (
     <>
