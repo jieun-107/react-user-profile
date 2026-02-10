@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SettingContext, SettingContextAction } from "./SettingContext";
 
 /**
@@ -69,6 +69,14 @@ export default function SettingProvider({
     }),
     [],
   );
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = {
+      small: "14px",
+      medium: "16px",
+      large: "18px",
+    }[preferences.fontSize];
+  }, [preferences]);
   return (
     <>
       {/* 3. Context 이중 래핑 (성능 최적화 전략)
