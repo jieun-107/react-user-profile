@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import { SettingContext, SettingContextAction } from "./SettingContext";
 
 /**
@@ -73,7 +73,8 @@ export default function SettingProvider({
     [],
   );
 
-  useEffect(() => {
+  // useLayoutEffect: useEffect와 기능은 같으나 컴포넌트가 그려지기 전에 동기적으로 effect 함수의 로직이 실행됨.
+  useLayoutEffect(() => {
     localStorage.setItem("preferences", JSON.stringify(preferences));
 
     document.documentElement.style.fontSize = {
